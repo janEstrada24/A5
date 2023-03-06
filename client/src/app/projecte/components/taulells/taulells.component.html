@@ -1,0 +1,11 @@
+<p>taulells works!</p>
+
+<table border="1" *ngFor="let fila of this.taulell.caselles" class="taulell">
+    <tr>
+        <td *ngFor="let casella of fila"  [ngStyle]="{'background-color': casella.color}">{{casella.lletra}}{{casella.num}}</td>
+    </tr>
+</table>
+
+<table class="taulell">
+    
+</table>
