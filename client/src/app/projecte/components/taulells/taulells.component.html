@@ -2,7 +2,11 @@
 
 <table border="1" *ngFor="let fila of this.taulell.caselles" class="taulell">
     <tr>
-        <td *ngFor="let casella of fila"  [ngStyle]="{'background-color': casella.color}">{{casella.lletra}}{{casella.num}}</td>
+        <td *ngFor="let casella of fila" [ngStyle]="{'background-color': casella.color}">
+            {{casella.lletra}}{{casella.num}}
+            <img [src]="this.casella.peca.imatge" alt="imatgePeca">
+
+        </td>
     </tr>
 </table>
 
