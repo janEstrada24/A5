@@ -16,25 +16,10 @@ export class TaulellsComponent {
   pecesNegres: IPeca[] = [];
 
   constructor() {
-    this.construirTaulell();
 
+    console.log(this.taulell);
     console.log("taulell construit");
   }
 
-  construirTaulell() {
-    /*for (let i = 0; i < 8; i++) {
-      let fila = [];
-      for (let j = 0; j < 8; j++) {
-        fila.push((i * j + j) + 1);
-      }
-      //this.caselles.push(fila);
-    }
-    console.log(this.caselles);
-    return this.caselles;*/
-    this.taulell.inicialitzarCasellesAmbPeces();
-    //this.taulell.crearPeces();
-    console.log(this.taulell);
-    return this.taulell;
-  }
 
 }
