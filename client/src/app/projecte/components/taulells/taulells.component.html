@@ -1,14 +1,28 @@
 <p>taulells works!</p>
 
-<table border="1" *ngFor="let fila of this.taulell.caselles" class="taulell">
-    <tr>
-        <td *ngFor="let casella of fila" [ngStyle]="{'background-color': casella.color} ">
-            <!--{{casella.lletra}}{{casella.num}}-->
-            <img [src]="this.casella.peca.imatge">
-        </td>
-    </tr>
-</table>
-
-<table class="taulell">
-    
-</table>
+<div class="container">
+    <div class="taula1">
+        <table border="1" *ngFor="let fila of this.taulell.caselles" class="taulell">
+            <tr>
+                <td *ngFor="let casella of fila" [ngStyle]="{'background-color': casella.color} ">
+                    <!--{{casella.lletra}}{{casella.num}}-->
+                    <img 
+                        draggable="true" 
+                        (dragstart)="dragStart($event)"
+                        
+                        [src]="this.casella.peca.imatge">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="taula2">
+        <table border="1" *ngFor="let fila of this.taulell2.caselles" class="taulell">
+            <tr>
+                <td *ngFor="let casella of fila" [ngStyle]="{'background-color': casella.color} ">
+                    <!--{{casella.lletra}}{{casella.num}}-->
+                    <img [src]="this.casella.peca.imatge">
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
