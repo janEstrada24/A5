@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Casella } from '../../models/Entities/Implementation/Casella';
+import { Peca } from '../../models/Entities/Implementation/Peca';
 import { Taulell } from '../../models/Entities/Implementation/Taulell';
 import { ICasella } from '../../models/Entities/Interfaces/ICasella';
 import { IPeca } from '../../models/Entities/Interfaces/IPeca';
@@ -16,7 +18,10 @@ export class TaulellsComponent {
   pecesBlanques: IPeca[] = [];
   pecesNegres: IPeca[] = [];
 
-  draggIndex: number = 0;
+  pecaAArrastrar!: Peca;
+
+  draggIndex1!: number;
+  draggIndex2!: number;
 
   constructor() {
     this.taulell.inicialitzarCasellesAmbPeces1();
@@ -24,6 +29,45 @@ export class TaulellsComponent {
     console.log(this.taulell);
     console.log("taulell construit");
   }
+
+  dragStart(taulell: Taulell, event: DragEvent, i: number, j: number, peca: Peca) {
+    this.draggIndex1 = i;
+    this.draggIndex2 = j;
+
+    this.pecaAArrastrar = peca;
+
+    taulell.caselles[i][j].peca = new Peca("", "");
+
+    console.log("dragStart");
+
+    console.log("pecaAArrastrar: ");
+    console.log(this.pecaAArrastrar);
+
+  }
+
+  dragOver(taulell: Taulell, event: DragEvent, i: number, j: number, peca: Peca) {
+    
+    taulell.caselles[i][j].peca = this.pecaAArrastrar;
+    
+    console.log("dragOver");
+    event.preventDefault();
+  }
+
+  drop(taulell: Taulell, event: DragEvent, i: number, j: number, peca: Peca) {
+    this.taulell.caselles[this.draggIndex1][this.draggIndex2].peca = new Peca("", "");
+    //this.taulell.caselles[i][j].peca = peca;
+
+    console.log("drop");
+    event.preventDefault();
+    
+    /*
+    this.draggIndex1 = i;
+    this.draggIndex2 = j;
+
+    taulell.caselles[i][j].peca = this.taulell.caselles[this.draggIndex1][this.draggIndex2].peca;*/
+
+  }
+
 /*
   dragStart(event: DragEvent) {
     // Almacenar la imagen que se está arrastrando
