@@ -12,10 +12,8 @@ import { IPeca } from '../../models/Entities/Interfaces/IPeca';
 })
 export class TaulellsComponent {
 
-  caselles!: ICasella[][];
-  taulell: Taulell = new Taulell(0);
-  taulell2: Taulell = new Taulell(0);
-
+  taulell: Taulell = new Taulell(1);
+  taulell2: Taulell = new Taulell(2);
 
   draggIndex1!: number;
   draggIndex2!: number;
@@ -27,30 +25,12 @@ export class TaulellsComponent {
     console.log("taulell construit");
   }
 
-  dragStart(taulell: Taulell, event: DragEvent, i: number, j: number) {
+  dragStart(i: number, j: number) {
     console.log("dragStart");
     this.draggIndex1 = i;
     this.draggIndex2 = j;
-
   }
 
-  /*dragStart(taulell: Taulell, event: DragEvent, i: number, j: number, peca: Peca) {
-    event.preventDefault();
-    this.draggIndex1 = i;
-    this.draggIndex2 = j;
-
-    console.log("pecaAArrastrar: ");
-    console.log(this.pecaAArrastrar);
-
-
-    this.pecaAArrastrar = peca;
-
-    taulell.caselles[i][j].peca = new Peca("", "");
-
-
-    console.log("dragStart");
-
-  }*/
 
   dragOver(event: DragEvent) {
     event.preventDefault();
@@ -62,36 +42,41 @@ export class TaulellsComponent {
     console.log("drop");
 
     let pecaOrigen = taulell.caselles[this.draggIndex1][this.draggIndex2].peca;
-    let pecaDesti = taulell.caselles[i][j].peca;
 
     if (pecaOrigen.color != "" && pecaOrigen.imatge != "") {
-      if(pecaDesti.color == "" || pecaDesti.imatge == "") {
+      this.mourePeca(taulell, i, j, pecaOrigen);
+      this.treurePeca(taulell, this.draggIndex1, this.draggIndex2);
+      /*if(pecaDesti.color == "" || pecaDesti.imatge == "") {
         //peca = this.pecaAArrastrar;
         taulell.caselles[i][j].peca = pecaOrigen;
         //taulell.caselles[i][j].peca = new Peca("", "");
       }
       else {
         console.log("no es pot moure");
-      }
+      }*/
     }
   }
 
-  mourePeca(taulell: Taulell, i: number, j: number) {
+  mourePeca(taulell: Taulell, i: number, j: number, pecaOrigen: Peca) {
     console.log("mourePeca");
 
-    let pecaOrigen = taulell.caselles[this.draggIndex1][this.draggIndex2].peca;
     let pecaDesti = taulell.caselles[i][j].peca;
     
-    if (pecaOrigen.color != "" && pecaOrigen.imatge != "") {
-      if(pecaDesti.color == "" || pecaDesti.imatge == "") {
-        //peca = this.pecaAArrastrar;
-        taulell.caselles[i][j].peca = pecaOrigen;
-        //taulell.caselles[i][j].peca = new Peca("", "");
-      }
-      else {
-        console.log("no es pot moure");
-      }
+    if(pecaDesti.color == "" || pecaDesti.imatge == "") {
+      //peca = this.pecaAArrastrar;
+      taulell.caselles[i][j].peca = pecaOrigen;
+      //taulell.caselles[i][j].peca = new Peca("", "");
+      
     }
+    else {
+      console.log("no es pot moure");
+    }
+    
+  }
+
+  treurePeca(taulell: Taulell, i: number, j: number) {
+    console.log("treurePeca");
+    taulell.caselles[i][j].peca = new Peca("", "");
   }
   
 /*

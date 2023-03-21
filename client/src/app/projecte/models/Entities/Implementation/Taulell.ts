@@ -57,7 +57,6 @@ export class Taulell implements ITaulell<IPeca> {
                                             );
             console.log(this.caselles[posicioFila][j]);
         }
-
     }
 
     public crearCasellesBuides() {
