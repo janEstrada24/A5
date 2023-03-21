@@ -4,12 +4,13 @@
     <div class="taula1">
         <table border="1" *ngFor="let fila of this.taulell.caselles; let i = index" class="taulell">
             <tr>
-                <td *ngFor="let casella of fila; let j = index" [ngStyle]="{'background-color': casella.color} ">
+                <td *ngFor="let casella of fila; let j = index" [ngStyle]="{'background-color': casella.color} "
+                    (dragover)="dragOver($event)"
+                    (drop)="drop(this.taulell, i, j)"
+                >
                     <img 
                         [draggable]="true" 
-                        (dragstart)="dragStart(this.taulell, $event, i, j, casella.peca)"
-                        (dragover)="dragOver(this.taulell, $event, i, j, casella.peca)"
-                        (drop)="drop(this.taulell, $event, i, j, casella.peca)"
+                        (dragstart)="dragStart(this.taulell, $event, i, j)"
                         
                         [src]="this.casella.peca.imatge">
                 </td>
@@ -22,9 +23,9 @@
                 <td *ngFor="let casella of fila; let j = index" [ngStyle]="{'background-color': casella.color} ">
                     <img 
                         [draggable]="true" 
-                        (dragstart)="dragStart(this.taulell, $event, i, j, casella.peca)"
-                        (dragover)="dragOver(this.taulell, $event, i, j, casella.peca)"
-                        (drop)="drop(this.taulell, $event, i, j, casella.peca)"
+                        (dragstart)="dragStart(this.taulell2, $event, i, j)"
+                        (dragover)="dragOver($event)"
+                        (drop)="drop(this.taulell2, i, j)"
                         
                         [src]="this.casella.peca.imatge">
                 </td>

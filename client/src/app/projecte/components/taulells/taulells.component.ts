@@ -15,10 +15,7 @@ export class TaulellsComponent {
   caselles!: ICasella[][];
   taulell: Taulell = new Taulell(0);
   taulell2: Taulell = new Taulell(0);
-  pecesBlanques: IPeca[] = [];
-  pecesNegres: IPeca[] = [];
 
-  pecaAArrastrar!: Peca;
 
   draggIndex1!: number;
   draggIndex2!: number;
@@ -30,44 +27,73 @@ export class TaulellsComponent {
     console.log("taulell construit");
   }
 
-  dragStart(taulell: Taulell, event: DragEvent, i: number, j: number, peca: Peca) {
+  dragStart(taulell: Taulell, event: DragEvent, i: number, j: number) {
+    console.log("dragStart");
     this.draggIndex1 = i;
     this.draggIndex2 = j;
+
+  }
+
+  /*dragStart(taulell: Taulell, event: DragEvent, i: number, j: number, peca: Peca) {
+    event.preventDefault();
+    this.draggIndex1 = i;
+    this.draggIndex2 = j;
+
+    console.log("pecaAArrastrar: ");
+    console.log(this.pecaAArrastrar);
+
 
     this.pecaAArrastrar = peca;
 
     taulell.caselles[i][j].peca = new Peca("", "");
 
+
     console.log("dragStart");
 
-    console.log("pecaAArrastrar: ");
-    console.log(this.pecaAArrastrar);
+  }*/
 
-  }
+  dragOver(event: DragEvent) {
+    event.preventDefault();
 
-  dragOver(taulell: Taulell, event: DragEvent, i: number, j: number, peca: Peca) {
-    
-    taulell.caselles[i][j].peca = this.pecaAArrastrar;
-    
     console.log("dragOver");
-    event.preventDefault();
   }
 
-  drop(taulell: Taulell, event: DragEvent, i: number, j: number, peca: Peca) {
-    this.taulell.caselles[this.draggIndex1][this.draggIndex2].peca = new Peca("", "");
-    //this.taulell.caselles[i][j].peca = peca;
-
+  drop(taulell: Taulell, i: number, j: number) {
     console.log("drop");
-    event.preventDefault();
-    
-    /*
-    this.draggIndex1 = i;
-    this.draggIndex2 = j;
 
-    taulell.caselles[i][j].peca = this.taulell.caselles[this.draggIndex1][this.draggIndex2].peca;*/
+    let pecaOrigen = taulell.caselles[this.draggIndex1][this.draggIndex2].peca;
+    let pecaDesti = taulell.caselles[i][j].peca;
 
+    if (pecaOrigen.color != "" && pecaOrigen.imatge != "") {
+      if(pecaDesti.color == "" || pecaDesti.imatge == "") {
+        //peca = this.pecaAArrastrar;
+        taulell.caselles[i][j].peca = pecaOrigen;
+        //taulell.caselles[i][j].peca = new Peca("", "");
+      }
+      else {
+        console.log("no es pot moure");
+      }
+    }
   }
 
+  mourePeca(taulell: Taulell, i: number, j: number) {
+    console.log("mourePeca");
+
+    let pecaOrigen = taulell.caselles[this.draggIndex1][this.draggIndex2].peca;
+    let pecaDesti = taulell.caselles[i][j].peca;
+    
+    if (pecaOrigen.color != "" && pecaOrigen.imatge != "") {
+      if(pecaDesti.color == "" || pecaDesti.imatge == "") {
+        //peca = this.pecaAArrastrar;
+        taulell.caselles[i][j].peca = pecaOrigen;
+        //taulell.caselles[i][j].peca = new Peca("", "");
+      }
+      else {
+        console.log("no es pot moure");
+      }
+    }
+  }
+  
 /*
   dragStart(event: DragEvent) {
     // Almacenar la imagen que se está arrastrando
@@ -107,5 +133,5 @@ export class TaulellsComponent {
     event.currentTarget.appendChild(imagen);
   }
 */
-
+  
 }
