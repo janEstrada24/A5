@@ -3,7 +3,7 @@ import { IJugador } from "../Interfaces/IJugador";
 import { IPeca } from "../Interfaces/IPeca";
 
 export class Equip implements IEquip<IJugador<IPeca>> {
-    num!: number;
+    num: number = 0;
     nom!: string;
     jugadors!: Array<IJugador<IPeca>>;
 

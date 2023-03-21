@@ -15,8 +15,12 @@ export class EntrarEquipsComponent {
   constructor() { }
 
   crearEquip() {
-    this.equip.jugadors.push(this.jugador1);
-    this.equip.jugadors.push(this.jugador2);
-    console.log(this.equip);
+    if (this.equip.nom != '' && this.jugador1.nom != '' && this.jugador2.nom != '') {
+      this.equip.jugadors.push(this.jugador1);
+      this.equip.jugadors.push(this.jugador2);
+      console.log(this.equip);
+    } else {
+      console.log("No s'ha pogut crear l'equip");
+    }
   }
 }

@@ -13,7 +13,6 @@ export class Taulell implements ITaulell<IPeca> {
     constructor (num: number) {
         this.num = num;
         this.caselles = new Array<Array<ICasella>>();
-        //this.inicialitzarCasellesAmbPeces1();
     }    
 
     public inicialitzarCasellesAmbPeces1(): void {
