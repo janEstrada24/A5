@@ -2,8 +2,10 @@
 
 <div class="container">
     <div class="taula1">
-        <div class="pecesCaigudes"></div>
-
+        <div class="pecesCaigudes" *ngFor="let peca of pecesCapturades" >
+            <img [src]="peca.imatge">
+        </div>
+        
         <table border="1" *ngFor="let fila of this.taulell.caselles; let i = index" class="taulell">
             <tr>
                 <td *ngFor="let casella of fila; let j = index" [ngStyle]="{'background-color': casella.color} "
@@ -18,10 +20,14 @@
             </tr>
         </table>
 
-        <div class="pecesCaigudes"></div>
+        <div class="pecesCaigudes" *ngFor="let peca of pecesCapturades" >
+            <img [src]="peca.imatge">
+        </div>
     </div>
     <div class="taula2">
-        <div class="pecesCaigudes"></div>
+        <div class="pecesCaigudes" *ngFor="let peca of pecesCapturades" >
+            <img [src]="peca.imatge">
+        </div>
 
         <table border="1" *ngFor="let fila of this.taulell2.caselles; let i = index" class="taulell">
             <tr>
@@ -37,6 +43,8 @@
             </tr>
         </table>
 
-        <div class="pecesCaigudes"></div>
+        <div class="pecesCaigudes" *ngFor="let peca of pecesCapturades" >
+            <img [src]="peca.imatge">
+        </div>
     </div>
 </div>

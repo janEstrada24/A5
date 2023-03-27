@@ -13,11 +13,13 @@ import { Subscription } from 'rxjs';
 })
 export class TaulellsComponent {
 
-  taulell: Taulell = new Taulell(1, );
+  taulell: Taulell = new Taulell(1);
   taulell2: Taulell = new Taulell(2);
 
   draggIndex1!: number;
   draggIndex2!: number;
+
+  pecesCapturades: IPeca[] = [];
 
   constructor() {
     this.taulell.inicialitzarCasellesAmbPeces1();
@@ -43,7 +45,7 @@ export class TaulellsComponent {
 
     let pecaOrigen = taulell.caselles[this.draggIndex1][this.draggIndex2].peca;
 
-    if (pecaOrigen.color != "" && pecaOrigen.imatge != "") {
+    if (pecaOrigen.color != "" || pecaOrigen.imatge != "") {
       this.mourePeca(taulell, i, j, pecaOrigen);
     }
   }
@@ -53,14 +55,17 @@ export class TaulellsComponent {
 
     let pecaDesti = taulell.caselles[i][j].peca;
     
-    if(pecaDesti.color != pecaOrigen.color || pecaDesti.color == "" || pecaDesti.imatge == "") {
+    if(pecaDesti.color != pecaOrigen.color) {
       taulell.caselles[i][j].peca = pecaOrigen;
       this.treurePeca(taulell, this.draggIndex1, this.draggIndex2);
-    }
-    else {
+      this.guardarPecaTreta
+    } else if(pecaDesti.color == "" || pecaDesti.imatge == "") {
+      taulell.caselles[i][j].peca = pecaOrigen;
+      this.treurePeca(taulell, this.draggIndex1, this.draggIndex2);
+
+    } else {
       console.log("no es pot moure");
     }
-    
   }
 
   treurePeca(taulell: Taulell, i: number, j: number) {
@@ -68,4 +73,14 @@ export class TaulellsComponent {
     taulell.caselles[i][j].peca = new Peca("", "");
   }
   
+  guardarPecaTreta(taulell: Taulell, i: number, j: number) {
+    console.log("guardarPecaTreta");
+    
+    taulell.caselles[i][j].peca = new Peca("", "");
+  }
+
+
+  getPecesCapturades() {
+    return this.pecesCapturades;
+  }
 }

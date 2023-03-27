@@ -10,7 +10,9 @@ const io = require("socket.io")(httpServer, {
     }
   });
 
-const documents = {};
+const equips = {};
+const jugadors = {};
+const peces = {};
 
 httpServer.listen(port, () => {
     console.log(`Listening on port ${port}`);
@@ -18,35 +20,37 @@ httpServer.listen(port, () => {
 
 io.on("connection", socket => {
     let previousId;
-
-    io.emit("documents", Object.keys(documents));
     console.log(`Socket ${socket.id} has connected`);
 
-    socket.on()
+    io.emit("equips", Object.keys(equips));
+    io.emit("jugadors", Object.keys(jugadors));
+    io.emit("peces", Object.keys(peces));
 
-    socket.on("getDoc", docId => {
-        safeJoin(docId);
-        socket.emit("document", documents[docId]);
+
+    socket.on("newEquip", equip => {
+        equips[equip.num] = equip;
+        safeJoin(equip.num);
+        io.emit("equips", Object.keys(equips));
+        socket.emit("equip", equip);
     });
 
-    socket.on("addDoc", doc => {
-        documents[doc.id] = doc;
-        safeJoin(doc.id);
-        io.emit("documents", Object.keys(documents));
-        socket.emit("document", doc);
-        /*
-            Note the difference between socket.emit() and io.emit() - 
-            the socket version is for emitting back to only initiating the client, 
-            the io version is for emitting to everyone connected to our server.
-        */
-    });
-    
-    socket.on("editDoc", doc => {
-        documents[doc.id] = doc;
-        socket.to(doc.id).emit("document", doc);
+    socket.on("getEquip", equipNum => {
+        safeJoin(equipNum);
+        socket.emit("equip", equips[equipNum]);
     });
 
-    
+    socket.on("getEquips", () => {
+        socket.emit("equips", Object.keys(equips));
+    });
+
+    socket.on("guardarPecaTreta", peca => {
+        peces.push(peca);
+    });
+
+    socket.on("getPecesTretes", () => {
+        socket.emit("peces", peces);
+    });
+
     const safeJoin = currentId => {
         socket.leave(previousId);
         socket.join(currentId, () => console.log(`Socket ${socket.id} joined from ${currentId}`));
