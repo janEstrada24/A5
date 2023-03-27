@@ -8,18 +8,21 @@ import { Equip } from '../../models/Entities/Implementation/Equip';
 })
 export class EquipService {
 
-  
+  currentEquip: Observable<Equip> = this.socket.fromEvent<Equip>('equip');
+  equips: Observable<Equip[]> = this.socket.fromEvent<Equip[]>('equips');
 
   constructor(private socket: Socket) { }
 
   newEquip() {
-    this.socket.emit('newEquip', { num: this.equipId(), nom: '' }));
+    this.socket.emit('newEquip', { nom: '', num: this.equipId() });
   }
 
   getEquip(num: string) {
+    this.socket.emit('getEquip', num);
   }
 
   getEquips() {
+    this.socket.emit('getEquips');
   }
 
   // 
