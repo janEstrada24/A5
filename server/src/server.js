@@ -22,6 +22,7 @@ io.on("connection", socket => {
     io.emit("documents", Object.keys(documents));
     console.log(`Socket ${socket.id} has connected`);
 
+    socket.on()
 
     socket.on("getDoc", docId => {
         safeJoin(docId);

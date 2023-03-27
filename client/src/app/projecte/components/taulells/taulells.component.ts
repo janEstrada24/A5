@@ -4,6 +4,7 @@ import { Peca } from '../../models/Entities/Implementation/Peca';
 import { Taulell } from '../../models/Entities/Implementation/Taulell';
 import { ICasella } from '../../models/Entities/Interfaces/ICasella';
 import { IPeca } from '../../models/Entities/Interfaces/IPeca';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-taulells',
@@ -52,7 +53,7 @@ export class TaulellsComponent {
 
     let pecaDesti = taulell.caselles[i][j].peca;
     
-    if(pecaDesti.color == "" || pecaDesti.imatge == "") {
+    if(pecaDesti.color != pecaOrigen.color || pecaDesti.color == "" || pecaDesti.imatge == "") {
       taulell.caselles[i][j].peca = pecaOrigen;
       this.treurePeca(taulell, this.draggIndex1, this.draggIndex2);
     }
